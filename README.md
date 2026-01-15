@@ -50,7 +50,20 @@ This config works on both Linux and macOS by using a shell to expand `$HOME`.
 
 ### Option 2: Install directly from GitHub (no clone needed)
 
-Use `uvx` to run directly from the private GitHub repo:
+Install the package from GitHub:
+
+```bash
+# Via SSH (private repos)
+uv pip install git+ssh://git@github.com/mlgill/pushover-mcp-server.git
+
+# Via HTTPS (public repos, or with token for private)
+uv pip install git+https://github.com/mlgill/pushover-mcp-server.git
+
+# Specific branch or tag
+uv pip install git+ssh://git@github.com/mlgill/pushover-mcp-server.git@main
+```
+
+Then use this Cursor config:
 
 ```json
 {
