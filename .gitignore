@@ -43,3 +43,6 @@ config.json
 
 # MCP config with secrets
 mcp.json
+
+# PyPI config with secrets (keep .pypirc.example)
+.pypirc

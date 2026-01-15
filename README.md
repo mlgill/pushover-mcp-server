@@ -40,13 +40,79 @@ This config works on both Linux and macOS by using a shell to expand `$HOME`.
 
 ## Installing on Multiple Machines
 
-To install on multiple Cursor installations:
+### Option 1: Clone the repo (recommended)
 
 1. **Clone the repo** to each machine at `~/code/pushover-mcp-server`
 2. Ensure `uv` is installed on each machine
 3. Add the config to `~/.cursor/mcp.json` on each machine
 4. Replace the token and user key values with your actual Pushover credentials
 5. Restart Cursor
+
+### Option 2: Install directly from GitHub (no clone needed)
+
+Use `uvx` to run directly from the private GitHub repo:
+
+```json
+{
+  "mcpServers": {
+    "Pushover": {
+      "command": "uvx",
+      "args": [
+        "--from", "git+ssh://git@github.com/mlgill/pushover-mcp-server.git",
+        "pushover-mcp"
+      ],
+      "env": {
+        "PUSHOVER_TOKEN": "your-app-token-here",
+        "PUSHOVER_USER_KEY": "your-user-key-here"
+      }
+    }
+  }
+}
+```
+
+This requires SSH access to the GitHub repo on each machine.
+
+### Option 3: Install from PyPI (after publishing)
+
+If published to PyPI, use the simplest configuration:
+
+```json
+{
+  "mcpServers": {
+    "Pushover": {
+      "command": "uvx",
+      "args": ["pushover-mcp"],
+      "env": {
+        "PUSHOVER_TOKEN": "your-app-token-here",
+        "PUSHOVER_USER_KEY": "your-user-key-here"
+      }
+    }
+  }
+}
+```
+
+## Publishing
+
+### Build the package
+
+```bash
+uv build
+```
+
+### Publish to PyPI
+
+1. Copy `.pypirc.example` to `~/.pypirc` and add your PyPI API token
+2. Publish:
+
+```bash
+uv publish
+```
+
+### Publish to Test PyPI (for testing)
+
+```bash
+uv publish --publish-url https://test.pypi.org/legacy/
+```
 
 ## Local Development
 
