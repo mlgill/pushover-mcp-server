@@ -2,6 +2,10 @@
 
 An MCP (Model Context Protocol) server that enables sending Pushover notifications from Cursor and other MCP-compatible tools.
 
+## Warning
+
+This repository is a personal project, is not well tested, and is not supported. The code is tested to the extent that I have used it. Others are welcome to fork and use at their own risk.
+
 ## Features
 
 - **pushover_send** - Send push notifications with full customization (priority, sound, URL, HTML, TTL)
