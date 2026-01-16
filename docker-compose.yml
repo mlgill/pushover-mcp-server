@@ -1,0 +1,9 @@
+services:
+  pushover-mcp:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PUSHOVER_TOKEN=${PUSHOVER_TOKEN}
+      - PUSHOVER_USER_KEY=${PUSHOVER_USER_KEY}
+    restart: unless-stopped

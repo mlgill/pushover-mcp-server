@@ -217,7 +217,7 @@ def main(transport: str, host: str, port: int) -> None:
         mcp.run()
     else:
         # SSE server mode
-        mcp.run(transport="sse")
+        mcp.run(transport="sse", host=host, port=port)
 
 
 if __name__ == "__main__":

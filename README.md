@@ -135,9 +135,85 @@ uv sync
 
 # Run the server (stdio mode for Cursor)
 uv run pushover-mcp
+```
 
-# Run in SSE mode (HTTP server)
-uv run pushover-mcp --transport sse --port 8000
+## Testing
+
+Run the test suite with pytest:
+
+```bash
+# Install dev dependencies
+uv sync --extra dev
+
+# Run all tests
+uv run pytest
+
+# Run with verbose output
+uv run pytest -v
+
+# Run a specific test file
+uv run pytest tests/test_client.py
+
+# Run with coverage (if pytest-cov is installed)
+uv run pytest --cov=pushover_mcp
+```
+
+## Web Service Deployment
+
+The server can be deployed as a web service using SSE (Server-Sent Events) transport, allowing MCP clients to connect over HTTP.
+
+### Running as a Web Service
+
+```bash
+# Run directly with custom host/port
+pushover-mcp --transport sse --host 0.0.0.0 --port 8000
+
+# Or with uv
+uv run pushover-mcp --transport sse --host 0.0.0.0 --port 8000
+```
+
+### Docker Deployment
+
+Build and run with Docker:
+
+```bash
+# Build the image
+docker build -t pushover-mcp .
+
+# Run the container
+docker run -d \
+  -p 8000:8000 \
+  -e PUSHOVER_TOKEN=your-app-token \
+  -e PUSHOVER_USER_KEY=your-user-key \
+  --name pushover-mcp \
+  pushover-mcp
+```
+
+### Docker Compose
+
+For easier deployment, use Docker Compose:
+
+1. Create a `.env` file with your credentials:
+
+```bash
+PUSHOVER_TOKEN=your-app-token
+PUSHOVER_USER_KEY=your-user-key
+```
+
+2. Start the service:
+
+```bash
+docker compose up -d
+```
+
+The server will be available at `http://localhost:8000`.
+
+### Connecting MCP Clients
+
+Once running as a web service, MCP clients can connect using the SSE endpoint:
+
+```
+http://your-server:8000/sse
 ```
 
 ## Environment Variables

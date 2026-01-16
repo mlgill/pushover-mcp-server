@@ -18,6 +18,13 @@ dependencies = [
     "click>=8.0.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-httpx>=0.30.0",
+]
+
 [project.scripts]
 pushover-mcp = "pushover_mcp.server:main"
 
@@ -29,3 +36,8 @@ include = [
     "/src",
     "/README.md",
 ]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+asyncio_default_fixture_loop_scope = "function"
