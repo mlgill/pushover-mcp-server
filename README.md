@@ -1,6 +1,6 @@
 # Pushover MCP Server
 
-An MCP (Model Context Protocol) server that enables sending Pushover notifications from Cursor and other MCP-compatible tools.
+An MCP (Model Context Protocol) server that enables sending Pushover notifications from Cursor, Claude Code, and other MCP-compatible tools.
 
 ## Warning
 
@@ -42,15 +42,72 @@ Add to your global Cursor MCP configuration at `~/.cursor/mcp.json`:
 
 This config works on both Linux and macOS by using a shell to expand `$HOME`.
 
+## Installation in Claude Code
+
+Claude Code supports MCP servers at both project and user levels.
+
+### Project-level (recommended for team projects)
+
+Add to `.mcp.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "Pushover": {
+      "command": "uvx",
+      "args": [
+        "--from", "git+ssh://git@github.com/mlgill/pushover-mcp-server.git",
+        "pushover-mcp"
+      ],
+      "env": {
+        "PUSHOVER_TOKEN": "your-app-token-here",
+        "PUSHOVER_USER_KEY": "your-user-key-here"
+      }
+    }
+  }
+}
+```
+
+### User-level (available in all projects)
+
+Add to `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "Pushover": {
+      "command": "uvx",
+      "args": [
+        "--from", "git+ssh://git@github.com/mlgill/pushover-mcp-server.git",
+        "pushover-mcp"
+      ],
+      "env": {
+        "PUSHOVER_TOKEN": "your-app-token-here",
+        "PUSHOVER_USER_KEY": "your-user-key-here"
+      }
+    }
+  }
+}
+```
+
+After adding the configuration, restart Claude Code or run `/mcp` to reload MCP servers.
+
+### Using with CLAUDE.md
+
+Copy `claude/CLAUDE.md` to your project root to enable automatic notification behavior when Claude Code is waiting for user approval. This configures:
+
+- **2 min idle**: Send normal priority notification
+- **8 min idle**: Escalate to high priority (prevents session timeout)
+
 ## Installing on Multiple Machines
 
-### Option 1: Clone the repo (recommended)
+### Option 1: Clone the repo
 
 1. **Clone the repo** to each machine at `~/code/pushover-mcp-server`
 2. Ensure `uv` is installed on each machine
-3. Add the config to `~/.cursor/mcp.json` on each machine
+3. Add the config to `~/.cursor/mcp.json` (Cursor) or `~/.claude.json` (Claude Code)
 4. Replace the token and user key values with your actual Pushover credentials
-5. Restart Cursor
+5. Restart Cursor or Claude Code
 
 ### Option 2: Install directly from GitHub (no clone needed)
 
@@ -67,7 +124,7 @@ uv pip install git+https://github.com/mlgill/pushover-mcp-server.git
 uv pip install git+ssh://git@github.com/mlgill/pushover-mcp-server.git@main
 ```
 
-Then use this Cursor config:
+Then use this MCP config (in `~/.cursor/mcp.json` or `~/.claude.json`):
 
 ```json
 {
@@ -137,7 +194,7 @@ uv publish --publish-url https://test.pypi.org/legacy/
 # Install dependencies
 uv sync
 
-# Run the server (stdio mode for Cursor)
+# Run the server (stdio mode for Cursor/Claude Code)
 uv run pushover-mcp
 ```
 

@@ -5,10 +5,10 @@
       "args": [
         "--from", "git+ssh://git@github.com/mlgill/pushover-mcp-server.git",
         "pushover-mcp"
-      ],  
+      ],
       "env": {
-        "PUSHOVER_TOKEN": "your-pushover-api-token or set via shell/.env",
-        "PUSHOVER_USER_KEY": "your-pushover-user-key or set via shell/.env"
+        "PUSHOVER_TOKEN": "your-app-token-here",
+        "PUSHOVER_USER_KEY": "your-user-key-here"
       }
     }
   }

@@ -7,8 +7,8 @@
         "pushover-mcp"
       ],
       "env": {
-        "PUSHOVER_TOKEN": "your-pushover-api-token or set via shell/.env",
-        "PUSHOVER_USER_KEY": "your-pushover-user-key or set via shell/.env"
+        "PUSHOVER_TOKEN": "your-app-token-here",
+        "PUSHOVER_USER_KEY": "your-user-key-here"
       }
     }
   }
