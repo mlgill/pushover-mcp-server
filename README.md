@@ -90,6 +90,27 @@ Add to `~/.claude.json`:
 }
 ```
 
+### One-liner installation
+
+Alternatively, install directly from the command line:
+
+```bash
+claude mcp add-json pushover '{
+  "command": "uvx",
+  "args": [
+    "--from",
+    "git+ssh://git@github.com/mlgill/pushover-mcp-server.git",
+    "pushover-mcp"
+  ],
+  "env": {
+    "PUSHOVER_TOKEN": "xxx",
+    "PUSHOVER_USER_KEY": "xxx"
+  }
+}'
+```
+
+Replace `xxx` with your actual Pushover credentials.
+
 After adding the configuration, restart Claude Code or run `/mcp` to reload MCP servers.
 
 ### Using with CLAUDE.md
